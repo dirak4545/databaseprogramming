@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>내 찜한 도서</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 14px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        .mybook-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+            gap: 20px;
+        }
+
+        .mybook-card {
+            width: 180px;
+            height: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .mybook-card:hover {
+            transform: scale(1.05);
+        }
+
+        .mybook-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .mybook-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .mybook-date {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .remove-button {
+            background-color: #dc3545;
+            color: white;
+            font-size: 14px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 90%;
+            margin: 10px auto;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #666;
+            margin-top: 50px;
+            font-size: 18px;
+        }
+        .chat-section {
+            margin-top: 15px;
+            padding: 10px;
+        }
+
+        .chat-button {
+            background-color: #6c757d;
+            color: white;
+            font-size: 14px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .chat-button:hover {
+            background-color: #5a6268;
+        }
+
+        .recommendation-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+            text-align: left;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<script>
+    function getRecommendation(bookTitle) {
+        const message = `${bookTitle}와 비슷한 책을 추천해주세요.`;
+
+        fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: message })
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.response);  // 여기를 alert로 변경
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('죄송합니다. 추천을 가져오는 중 오류가 발생했습니다.');  // 에러 메시지도 alert로 변경
+            });
+    }
+</script>
+<body>
+<a href="javascript:history.back()" class="back-button">뒤로가기</a>
+<h3>내 찜한 도서 목록</h3>
+
+<div class="mybook-container">
+    <!-- 찜한 도서가 없을 경우 -->
+    <div th:if="${#lists.isEmpty(mybooks)}" class="empty-message">
+        찜한 도서가 없습니다.
+    </div>
+
+    <!-- 찜한 도서 목록 반복 -->
+    <div th:each="mybook : ${mybooks}" class="mybook-card">
+        <div class="mybook-details">
+            <div class="chat-section">
+                <button th:data-bookname="${mybook.bookname}" onclick="getRecommendation(this.dataset.bookname)" class="chat-button">
+                    이 책과 비슷한 책 추천받기
+                </button>
+                <div id="recommendation-result" class="recommendation-text"></div>
+            </div>
+            <div class="mybook-title" th:text="${mybook.bookname}"></div>
+            <div class="mybook-date"
+                 th:text="${#temporals.format(mybook.createdAt, 'yyyy-MM-dd HH:mm')}">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

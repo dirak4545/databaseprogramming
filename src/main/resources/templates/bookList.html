@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>---------도서 목록 ----------</title>
+</head>
+<body>
+	<a href="/">뒤로 가기</a>
+	<!-- searchForm.html -->
+	<form action="/searchlist" method="get">
+		<input type="text" name="text" placeholder="검색어를 입력하세요">
+		<button type="submit">검색</button>
+	</form>
+	<table border="1">
+		<tr>
+			<th>bookid</th>
+			<th>bookname</th>
+			<th>publisher</th>
+			<th>price</th>
+		</tr>
+		<tr th:each = "board: ${bookList}">
+			<td>
+				<a th:text = "${board.bookid}" th:href="@{/{id}(id=${board.bookid})}"></a>
+			</td>
+			<td th:text = "${board.bookname}"></td>
+			<td th:text = "${board.authors}"></td>
+			<td th:text = "${board.publisher}"></td>
+			<td th:text = "${board.category}"></td>
+			<td th:text = "${board.price}"></td>
+			<td th:text = "${board.isbn}"></td>
+			<td th:text = "${board.bookimg}"></td>
+		</tr>
+	</table>
+<a href="/booklist2">검색 기록</a>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Book Finder & Recommender</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			margin: 0;
+			padding: 0;
+			background: linear-gradient(135deg, #f9f9f9, #e0f7fa);
+			color: #333;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.container {
+			text-align: center;
+			background: white;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+			padding: 30px;
+			max-width: 500px;
+			width: 90%;
+		}
+
+		h1 {
+			font-size: 2rem;
+			margin-bottom: 20px;
+			color: #00796b;
+		}
+
+		p {
+			font-size: 1rem;
+			margin-bottom: 30px;
+			color: #666;
+		}
+
+		.search-box {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 20px;
+		}
+
+		.history-btn {
+			margin-top: 10px;
+			background: #004d40;
+			border-radius: 5px;
+		}
+
+		.history-btn:hover {
+			background: #00332e;
+		}
+
+		input[type="text"] {
+			width: 70%;
+			padding: 10px;
+			font-size: 1rem;
+			border: 1px solid #ccc;
+			border-radius: 5px 0 0 5px;
+			outline: none;
+		}
+
+		button {
+			padding: 10px 20px;
+			font-size: 1rem;
+			background: #00796b;
+			color: white;
+			border: none;
+			cursor: pointer;
+			border-radius: 0 5px 5px 0;
+			transition: background 0.3s;
+		}
+
+		button:hover {
+			background: #005f56;
+		}
+
+		.recommend-btn {
+			margin-top: 20px;
+			background: #ffa000;
+			border-radius: 5px;
+		}
+
+		.recommend-btn:hover {
+			background: #ff8f00;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<h1>Discover Your Next Book</h1>
+	<p>Search for books and get personalized recommendations for what to read next.</p>
+
+	<form action="/searchlist" method="get">
+		<input type="text" name="text" placeholder="Search for books..." required>
+		<button type="submit">Search</button>
+	</form>
+
+	<a href="/booklist2">
+		<button class="history-btn">Show Search History</button>
+	</a>
+
+	<a href="/mybook-list">
+		<button class="history-btn">My Books</button>
+	</a>
+</div>
+</body>
+</html>

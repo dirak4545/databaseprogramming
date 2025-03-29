@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>-------- 도서정보 상세 보기 ------------</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<th>bookid</th>
+			<td th:text="${bookDetail.bookid}"></td>
+		</tr>
+		<tr>
+			<th>bookname</th>
+			<td th:text="${bookDetail.bookname}"></td>
+		</tr>
+		<tr>
+			<th>authors</th>
+			<td th:text="${bookDetail.authors}"></td>
+		</tr>
+		<tr>
+			<th>publisher</th>
+			<td th:text="${bookDetail.publisher}"></td>
+		</tr>
+		<tr>
+			<th>price</th>
+			<td th:text="${bookDetail.price}"></td>
+		</tr>
+		<tr>
+			<th>ISBN</th>
+			<td th:text="${bookDetail.isbn}"></td>
+		</tr>
+		<tr>
+			<th>카테고리</th>
+			<td th:text="${bookDetail.category}"></td>
+		</tr>
+		<tr>
+			<th>이미지</th>
+			<td>
+				<img th:if="${bookDetail.bookimg != null and bookDetail.bookimg != ''}"
+					 th:src="@{${bookDetail.bookimg}}"
+					 alt="도서 이미지"
+					 style="max-width: 200px; height: auto;">
+				<span th:if="${bookDetail.bookimg == null or bookDetail.bookimg == ''}" >
+            이미지가 없습니다
+        </span>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<button onclick="goList()">목록</button>
+	<button onclick="goUpdate()">수정</button>
+	<button onclick="goDelete()">삭제</button>
+</body>
+<script th:inline="javascript">
+	const goList = () => {
+		location.href = "/list";
+	}
+	const goUpdate = () => {
+		location.href = "/goUpdate/[[${bookDetail.bookid}]]";
+	}
+	const goDelete = () => {
+		const ok = confirm("삭제하시겠습니까?");
+			if(ok) {
+				location.href = "/goDelete/[[${bookDetail.bookid}]]";
+			}
+	}
+	
+</script>
+
+</html>

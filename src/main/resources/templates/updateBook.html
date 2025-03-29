@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/goUpdate/{id}(id=${bookDetail.bookid})}" method="post" name="updateForm">
+    bookid : <input type="text" readonly name="bookid" th:value="${bookDetail.bookid}">
+    <br>
+    bookname : <input type="text" name="bookname" th:value="${bookDetail.bookname}">
+    <br>
+    publisher : <input type="text" name="publisher" th:value="${bookDetail.publisher}">
+    <br>
+    price : <input type="text" name="price" th:value="${bookDetail.price}">
+    <br>
+</form>
+<br>
+<input type="button" value="수정" onclick="goUpdate()">
+</body>
+<script th:inline="javascript">
+    const goUpdate = () => {
+        const ok = confirm("수정?");
+        if (ok) {
+            updateForm.submit();
+        }
+    }
+</script>
+</html>

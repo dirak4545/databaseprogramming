@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<a href="/">뒤로 가기</a>
+	<form action="/addBook" method="post" enctype="multipart/form-data">
+		제목 : <input type="text" name="bookname"><br>
+		저자 : <input type="text" name="authors"><br>
+		출판사 : <input type="text" name="publisher"><br>
+		카테고리 : <input type="text" name="category"><br>
+		가격 : <input type="text" name="price"><br>
+		ISBS : <input type="text" name="isbn"><br>
+		표지(URL) : <input type="text" name="bookimg"><br>
+		<input type="submit" value="저장">
+	</form>
+	<a href="/list">도서목록</a>
+</body>
+</html>
