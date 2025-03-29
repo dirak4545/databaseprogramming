@@ -2,8 +2,7 @@ package com.example.demo.controller;
 
 import java.net.URI;
 import java.util.List;
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Value;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.MyBookRepository;
 import com.example.demo.service.BookService;
@@ -43,8 +42,8 @@ public class BookController {
     public String list(String text, Model model) {
 
         // 네이버 검색 API 요청
-        String clientId = "COm_5Cf4OB4vQmqFDYcb";
-        String clientSecret = "07G9iZtOBi";
+        String clientId = "${credentials.clientId}";
+        String clientSecret = "${credentials.clientSecret}";
 
         //String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text;    // JSON 결과
         URI uri = UriComponentsBuilder
